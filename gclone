@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# Valores padrão
+PROTO="ssh"
+USER=$(git config --global user.name)
+REPO=""
+
+# Função de ajuda
+show_help() {
+  echo "Uso: $0 [opções] <nome-do-repo>"
+  echo ""
+  echo "Clona um repositório Git usando SSH ou HTTPS."
+  echo ""
+  echo "Opções:"
+  echo "  --proto ssh|https    Define o protocolo (padrão: ssh)"
+  echo "  --user <usuário>     Define o usuário do GitHub (padrão: usuário do git config)"
+  echo "  --help               Mostra esta mensagem de ajuda"
+  echo ""
+  echo "Exemplos:"
+  echo "  $(basename "$0") meu-repo"
+  echo "  $(basename "$0") --proto https meu-repo"
+  echo "  $(basename "$0") --user fulano meu-repo"
+  exit 0
+}
+
+# Parse dos argumentos
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+    --proto)
+      PROTO="$2"
+      shift
+      ;;
+    --user)
+      USER="$2"
+      shift
+      ;;
+    --help)
+      show_help
+      ;;
+    -*)
+      echo "Opção desconhecida: $1"
+      echo "Use --help para ver as opções disponíveis."
+      exit 1
+      ;;
+    *)
+      REPO="$1"
+      ;;
+  esac
+  shift
+done
+
+# Verificações básicas
+if [ -z "$REPO" ]; then
+  echo "Erro: repositório não especificado."
+  echo "Use --help para ver o modo de uso."
+  exit 1
+fi
+
+if [ -z "$USER" ]; then
+  echo "Erro: Usuário não especificado e 'user.name' não está configurado no git."
+  echo "Use --user ou configure globalmente com:"
+  echo "  git config --global user.name \"seu-usuario\""
+  exit 1
+fi
+
+# Construção da URL
+if [ "$PROTO" == "ssh" ]; then
+  URL="git@github.com:${USER}/${REPO}.git"
+else
+  URL="https://github.com/${USER}/${REPO}.git"
+fi
+
+# Clonagem
+echo "Clonando de $URL ..."
+git clone "$URL"

@@ -1,4 +1,3 @@
-```md
 # 📦 gclone
 
 `gclone` is a lightweight Bash utility that generates a GitHub clone URL based on a concise custom input format. It's designed to save time and reduce typing when cloning repositories.
@@ -23,7 +22,6 @@
 
 ```bash
 gclone [proto@][user/]repo
-```
 
 ### Parameters:
 - `proto`: (Optional) `ssh` or `https`. Defaults to `ssh`.

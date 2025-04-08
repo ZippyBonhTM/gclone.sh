@@ -22,6 +22,7 @@
 
 ```bash
 gclone [proto@][user/]repo
+```
 
 ### Parameters:
 - `proto`: (Optional) `ssh` or `https`. Defaults to `ssh`.
@@ -35,6 +36,7 @@ git clone "$(gclone my-repo)"
 git clone "$(gclone zippy/my-repo)"
 git clone "$(gclone https@my-repo)"
 git clone "$(gclone https@zippy/my-repo)"
+
 ```
 
 ### Help:

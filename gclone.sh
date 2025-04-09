@@ -48,7 +48,7 @@ fi
 if [[ "$proto" == "ssh" ]]; then
   echo "git@github.com:$user/$repo.git"
 elif [[ "$proto" == "https" ]]; then
-  echo "https://$user@github.com/$repo.git"
+  echo "https://github.com/$user/$repo.git"
 else
   echo "Error: Unsupported protocol '$proto'. Use 'ssh' or 'https'." >&2
   exit 1
